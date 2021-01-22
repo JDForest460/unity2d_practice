@@ -10,6 +10,7 @@ public class player_move : MonoBehaviour
     public float speed;
     public float jumpforce;
     public LayerMask ground;
+    private bool jump_pressed;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +18,17 @@ public class player_move : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && coll.IsTouchingLayers(ground))
+        {
+            jump_pressed = true;
+        }
+    }
+	void FixedUpdate()
     {
         Movement();
+        jump();
         switch_anim();
     }
 
@@ -40,15 +48,19 @@ public class player_move : MonoBehaviour
 		{
             transform.localScale = new Vector3(faced_direction, 1, 1);
 		}
-        //jump
-
-		if (Input.GetKeyDown(KeyCode.Space) && coll.IsTouchingLayers(ground))
-		{
-            rb.velocity = new Vector2(rb.velocity.x, jumpforce * Time.deltaTime);
-            anim.SetBool("is_jump_up", true);
-        }
+ 
     }
 
+    void jump()
+	{
+        //jump
+        if (jump_pressed && coll.IsTouchingLayers(ground))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpforce * Time.deltaTime);
+            anim.SetBool("is_jump_up", true);
+            jump_pressed = false;
+        }
+    }
     void switch_anim()
 	{
         anim.SetBool("is_idle", true);
