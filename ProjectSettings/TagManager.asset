@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - cherry
   layers:
   - Default
   - TransparentFX
@@ -41,7 +42,10 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: background
+  - name: sky
+    uniqueID: 3423960937
+    locked: 0
+  - name: enviorment
     uniqueID: 3934333959
     locked: 0
   - name: land
