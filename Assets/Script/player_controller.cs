@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class player_controller : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class player_controller : MonoBehaviour
     public Collider2D foot_coll;
     public BoxCollider2D body_coll;
     public Transform hat_positiob;
+    public Text cherry_text;
     public int num_cherry;
     public float speed;
     public float jumpforce;
@@ -45,6 +47,7 @@ public class player_controller : MonoBehaviour
         jump();
         crouch();
         switch_anim();
+        updateUI();
     }
     void Movement()
 	{
@@ -119,5 +122,9 @@ public class player_controller : MonoBehaviour
             Destroy(collision.gameObject);
             num_cherry += 1;
 		}
+	}
+    void updateUI()
+	{
+        cherry_text.text = num_cherry.ToString();
 	}
 }
