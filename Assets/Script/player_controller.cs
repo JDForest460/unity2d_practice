@@ -115,7 +115,8 @@ public class player_controller : MonoBehaviour
         }
 
 	}
-	private void OnTriggerEnter2D(Collider2D collision)
+	//collect items
+    private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if(collision.tag == "cherry")
 		{
@@ -123,7 +124,25 @@ public class player_controller : MonoBehaviour
             num_cherry += 1;
 		}
 	}
-    void updateUI()
+	//destory forg 
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if(collision.gameObject.tag == "forg")
+		{
+            if(anim.GetBool("is_jump_down"))
+            {
+                anim.SetBool("is_jump_down", false);
+                anim.SetBool("is_jump_up", true);
+                anim.SetBool("is_idle", false);
+                rb.velocity = new Vector2(rb.velocity.x, jumpforce * Time.fixedDeltaTime);
+                Destroy(collision.gameObject);
+
+            }
+		}
+	}
+
+
+	void updateUI()
 	{
         cherry_text.text = num_cherry.ToString();
 	}
